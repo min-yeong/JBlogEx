@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- Mybatis 설정 파일 -->
+<!-- SQLSESSIONTemplatee에 전달될 설정 파일 -->
+<configuration>
+	<!-- MyBatis에서 사용할 매개변수들의 별칭 -->
+	<typeAliases>
+		<typeAlias alias="UsersVo" type="com.bitacademy.jblog.repository.UsersVo"/>
+		<typeAlias alias="BlogsVo" type="com.bitacademy.jblog.repository.BlogsVo"/>
+		<typeAlias alias="CategorysVo" type="com.bitacademy.jblog.repository.CategorysVo"/>
+		<typeAlias alias="PostsVo" type="com.bitacademy.jblog.repository.PostsVo"/>
+	</typeAliases>
+	
+	<!-- SQL을 담고 table과 객체를 연결시킬 매핑정보를 담고 있는 Mapper의 목록 -->
+	<mappers>
+		<mapper resource ="/mybatis/mappers/users.xml"/>
+		<mapper resource ="/mybatis/mappers/blogs.xml"/>
+		<mapper resource ="/mybatis/mappers/categorys.xml"/>
+		<mapper resource ="/mybatis/mappers/posts.xml"/>
+	</mappers>
+</configuration>

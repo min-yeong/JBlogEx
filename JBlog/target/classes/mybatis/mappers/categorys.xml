@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<!-- 목록을 위한 전체 SELECT -->
+	<select id="selectAll" resultType="CategorysVo">
+	<![CDATA[
+		SELECT c.cateNo, c.userNo, c.cateName, c.description, c.regDate 
+		FROM category c, blog b
+		WHERE c.userNo = b.userNo
+		ORDER BY regdate DESC
+	]]>
+	</select>
+	
+	<select id="selectById" parameterType="long" resultType="CategorysVo">
+	<![CDATA[
+		SELECT c.cateNo, c.userNo, c.cateName, c.description, c.regDate 
+		FROM category c, blog b
+		WHERE c.userNo = b.userNo and b.userNo=#{val}
+		ORDER BY regdate DESC
+	]]>
+	</select>
+	
+	<!-- 게시물 등록을 위한 INSERT -->
+	<insert id="insert" parameterType="CategorysVo">
+	<selectKey keyProperty="cateNo" resultType="long" order="BEFORE">
+		SELECT seq_category_no.nextval from dual
+	</selectKey>
+	<![CDATA[
+		INSERT INTO category (cateNo, userNo, cateName, description, regDate) 
+		VALUES (#{cateNo}, #{userNo} ,#{cateName}, #{description}, SYSDATE)	
+	]]>
+	</insert>
+	
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		DELETE FROM category WHERE cateNo IN (SELECT c.cateNo FROM category c, blog b WHERE c.userNo=b.userNo AND b.userNo=#{val})
+	]]>
+	</delete>
+</mapper>

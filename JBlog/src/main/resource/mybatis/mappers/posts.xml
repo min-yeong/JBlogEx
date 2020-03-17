@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	<insert id="insert" parameterType="PostsVo">
+	<selectKey keyProperty="postNo" resultType="long" order="BEFORE">
+		SELECT seq_post_no.nextval from dual
+	</selectKey>
+	<![CDATA[
+		INSERT INTO post (postNo, cateNo, postTitle, postContent, regDate) 
+		VALUES (#{postNo}, #{cateNo} ,#{postTitle}, #{postContent}, SYSDATE)	
+	]]>
+	</insert>
+	
+	<select id="select" parameterType="long" resultType="PostsVo">
+	<![CDATA[
+		SELECT p.postTitle, p.postContent
+		FROM post p, category c, blog b
+		WHERE p.cateNo=c.cateNo AND c.userNo=b.userNo AND b.userNo=#{val}
+	]]>
+	</select>
+	
+	<select id="selectFirst" parameterType="long" resultType="PostsVo">
+	<![CDATA[
+		SELECT p.postTitle, p.postContent
+		FROM post p, category c, blog b
+		WHERE p.cateNo=c.cateNo AND c.userNo=b.userNo AND b.userNo=#{val} AND p.regDate = (SELECT MAX(regDate) from post)
+	]]>
+	</select>
+</mapper>
