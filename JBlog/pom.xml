@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <properties>
-  	<org.springframework-version>4.2.3.RELEASE</org.springframework-version>
+  	<org.springframework-version>4.2.7.RELEASE</org.springframework-version>
   	<!-- jcl과 slf4j를 연결하는 브릿지 -->
   	<jcloverslf4j-version>1.7.7</jcloverslf4j-version>
   	<!-- slf4j 실제 구현체 Logback의 버전 -->
